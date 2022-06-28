@@ -3,11 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv').config();
+
+const mongooseConnectLink = process.env.REACT_APP_MONGOOSE_CONNECT_LINK;
 
 mongoose
-  .connect(
-    'mongodb+srv://onethps:wwwwww@cluster0.kbfdi.mongodb.net/?retryWrites=true&w=majority'
-  )
+  .connect(mongooseConnectLink)
   .then(() => {
     console.log('DB ok');
   })
@@ -26,7 +27,7 @@ app.use(bodyParser.json());
 
 // settings routes
 app.use(cors());
-app.use('/home-new', users);
+app.use('/', users);
 
 app.use((req, res) => {
   res.send({
